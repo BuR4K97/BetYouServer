@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using BetYouServer.Models;
 
-namespace BetYou_Server.Controllers
+namespace BetYouServer.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("BetYou/")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class UserController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+      
+        [HttpPost("Login")]
+        public AccountProfile Login()
         {
-            return new string[] { "value1", "value2" };
+            return new AccountProfile();
         }
 
         // GET api/values/5

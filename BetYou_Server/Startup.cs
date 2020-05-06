@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using BetYouServer.Configurations;
 
 namespace BetYou_Server
 {
@@ -24,6 +25,13 @@ namespace BetYou_Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(ServerConfiguration.IDLE_TIMEOUT);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -34,7 +42,8 @@ namespace BetYou_Server
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseHttpsRedirection();
+            app.UseSession();
             app.UseMvc();
         }
     }
