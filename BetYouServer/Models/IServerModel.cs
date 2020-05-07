@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace BetYouServer.Models
 {
-
-    public enum ServerModel { ACCOUNT, USER }
+    public enum ServerModel { Account, User, Admin }
 
     public interface IServerModel
     {

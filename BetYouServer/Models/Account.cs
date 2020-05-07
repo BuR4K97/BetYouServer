@@ -7,7 +7,7 @@ namespace BetYouServer.Models
 {
     public class Account : IServerModel
     {
-        public const ServerModel Model = ServerModel.ACCOUNT;
+        public const ServerModel Model = ServerModel.Account;
 
         public int ID;
         public string Username;

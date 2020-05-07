@@ -7,7 +7,7 @@ namespace BetYouServer.Models
 {
     public class User : IServerModel
     {
-        public const ServerModel Model = ServerModel.USER;
+        public const ServerModel Model = ServerModel.User;
         public enum Membership { BRONZE, SILVER, GOLD }
        
         public bool BetPermission;
@@ -15,7 +15,7 @@ namespace BetYouServer.Models
         public float Balance;
         public float VirtualBalance;
         public int Rating;
-        public Membership Membership;
+        public Membership Member;
 
         public ServerModel GetServerModel()
         {
@@ -23,10 +23,4 @@ namespace BetYouServer.Models
         }
     }
 
-    public class MembershipExtensions
-    {
-
-        public Member
-
-    }
 }
