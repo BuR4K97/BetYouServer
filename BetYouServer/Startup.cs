@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using BetYouServer.Configurations;
 
-namespace BetYou_Server
+namespace BetYouServer
 {
     public class Startup
     {

@@ -13,9 +13,9 @@ namespace BetYouServer.Controllers
     {
       
         [HttpPost("Login")]
-        public AccountProfile Login()
+        public Account Login()
         {
-            return new AccountProfile();
+            return new Account();
         }
 
         // GET api/values/5
@@ -41,6 +41,7 @@ namespace BetYouServer.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }
