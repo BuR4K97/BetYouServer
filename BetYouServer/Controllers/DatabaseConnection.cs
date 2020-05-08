@@ -45,14 +45,12 @@ namespace BetYouServer.Controllers
             }
         }
 
-        public void ExecuteQuery()
+        public void ExecuteQuery(DatabaseQuery query)
         {
-            string query = "SELECT col0,col1 FROM YourTable";
-            MySqlCommand comm = new MySqlCommand(query, _conn);
+            MySqlCommand comm = new MySqlCommand(query.GetSQLRepresentation(), _conn);
             MySqlDataReader reader = comm.ExecuteReader();
             while (reader.Read())
             {
-
                 int x = reader.FieldCount;
                 Console.WriteLine();
             }
@@ -86,7 +84,7 @@ namespace BetYouServer.Controllers
 
     }
 
-    public static class ConnectionSpecExtensions
+    public static class DBConnectionSpecExtensions
     {
         public static string GetKeyRepresentation(this DatabaseConnectionSpec.Spec spec)
         {
