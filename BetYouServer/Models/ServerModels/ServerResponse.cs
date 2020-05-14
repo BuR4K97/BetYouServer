@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BetYouServer.Models;
 
-namespace BetYouServer.Controllers
+namespace BetYouServer.Models
 {
     public enum ServerException { NONE }
 
