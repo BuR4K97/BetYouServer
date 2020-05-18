@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace BetYouServer.Models
 {
-    public enum ServerException { NONE }
+    public enum ServerException { None, UnknownUsername, InvalidLoginCredentials, RegisteredUsername, RegisteredEmail }
 
     public class ServerResponse
     {
         public Dictionary<ServerModel, IServerModel> Data = new Dictionary<ServerModel, IServerModel>();
-        public ServerException Exception = ServerException.NONE;
+        public ServerException Exception = ServerException.None;
     }
 
 }

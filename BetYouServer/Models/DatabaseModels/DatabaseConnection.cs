@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.IO;
 
 namespace BetYouServer.Models
 {
@@ -26,30 +28,41 @@ namespace BetYouServer.Models
             }
             catch (InvalidOperationException exception)
             {
-                Console.WriteLine(exception.Message);
+                Console.Error.WriteLine(exception.Message);
+                Console.Error.WriteLine(exception.StackTrace);
             }
             catch (MySqlException exception)
             {
-                Console.WriteLine(exception.Message);
+                Console.Error.WriteLine(exception.Message);
+                Console.Error.WriteLine(exception.StackTrace);
             }
         }
 
-        public void ExecuteQuery(DatabaseQuery query)
+        public List<Dictionary<string, string>> ExecuteQuery(string query)
         {
-            MySqlCommand comm = new MySqlCommand(query.GetSQLRepresentation(), _conn);
-            MySqlDataReader reader = comm.ExecuteReader();
+            List<Dictionary<string, string>> results = new List<Dictionary<string, string>>();
+            MySqlCommand comm = new MySqlCommand(query, _conn);
+            MySqlDataReader reader = null;
+            try
+            {
+                reader = comm.ExecuteReader();
+            }
+            catch (MySqlException exception)
+            {
+                throw new DBQExecutionFailException(exception.Code, exception.Number, exception.SqlState, exception.Message);
+            }
 
-            Dictionary<string, string> attributes = new Dictionary<string, string>();
             while (reader.Read())
             {
-                for (int i = 0; i < reader.FieldCount; i++)
+                results.Add(new Dictionary<string, string>());
+                for(int i = 0; i < reader.FieldCount; i++)
                 {
-                    attributes.Add(reader.GetName(i), reader.GetString(i));
+                    results.Last().Add(reader.GetName(i), reader.IsDBNull(i) ? DatabaseModel.NullVal : reader.GetString(i));
                 }
-                query.FeedSQLResult(attributes);
-                attributes.Clear();
             }
+            comm.Cancel();
             reader.Close();
+            return results;
         }
 
         public void Close()
@@ -87,6 +100,25 @@ namespace BetYouServer.Models
                     + Spec.Timeout.GetKeyRepresentation()       + Equal + Timeout       + Comma
                     + Spec.UserVariables.GetKeyRepresentation() + Equal + UserVariables + Comma
                     + Spec.Compression.GetKeyRepresentation()   + Equal + Compression   + Comma;
+        }
+
+    }
+
+    public class DBQExecutionFailException : Exception
+    {
+        private const string Message = "DatabaseQuery execution failed for a reason! Investigate further details.";
+
+        public readonly uint SQLCode;
+        public readonly int SQLType;
+        public readonly string SQLState;
+        public readonly string InnerExceptMess;
+
+        public DBQExecutionFailException(uint sqlCode, int sqlType, string sqlState, string innerExceptMess) : base(Message)
+        {
+            this.SQLCode = sqlCode;
+            this.SQLType = sqlType;
+            this.SQLState = sqlState;
+            this.InnerExceptMess = innerExceptMess;
         }
 
     }

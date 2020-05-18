@@ -14,7 +14,8 @@
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "BetYouServer": {
-      "commandName": "IISExpress"
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:52000"
     }
   }
 }

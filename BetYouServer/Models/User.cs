@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BetYouServer.Models
 {
-    public class User : DatabaseModel, IServerModel
+    public class User : Actor
     {
         public const ServerModel Model = ServerModel.User;
         private const string DBTableName = "user";
@@ -13,18 +13,17 @@ namespace BetYouServer.Models
         public enum Attribute { Account, BetPermission, SocialPermission, Balance, VirtualBalance, Rating, Member }
         public enum Membership { Bronze, Silver, Gold }
 
-        public Account Account;
-        public bool BetPermission;
-        public bool SocialPermission;
-        public float Balance;
-        public float VirtualBalance;
-        public int Rating;
-        public Membership Member;
+        public bool BetPermission       = true;
+        public bool SocialPermission    = true;
+        public float Balance            = 0.0f;
+        public float VirtualBalance     = 0.0f;
+        public int Rating               = 0;
+        public Membership Member        = Membership.Bronze;
 
         //DB Purpose - Clear before use! Add only next DBQuery related attributes 
         public List<Attribute> Attributes = new List<Attribute>();
 
-        public ServerModel GetServerModel()
+        public override ServerModel GetServerModel()
         {
             return Model;
         }

@@ -15,9 +15,8 @@ namespace BetYouServer
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            Configuration.Initialize();
+            WebHost.CreateDefaultBuilder(args).UseStartup<ServerConfiguration>().Build().Run();
         }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) => WebHost.CreateDefaultBuilder(args).UseStartup<ServerConfiguration>();
     }
 }

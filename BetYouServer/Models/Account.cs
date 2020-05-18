@@ -5,6 +5,13 @@ using System.Threading.Tasks;
 
 namespace BetYouServer.Models
 {
+    public abstract class Actor : DatabaseModel, IServerModel
+    {
+        public Account Account;
+
+        public abstract ServerModel GetServerModel();
+    }
+
     public class Account : DatabaseModel, IServerModel
     {
         public const ServerModel Model = ServerModel.Account;
