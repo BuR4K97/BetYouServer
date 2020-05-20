@@ -1,0 +1,21 @@
+﻿@page
+@using BetYouServer.Models
+@model BetYouServer.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+<h2>Login</h2>
+<label> @{ 
+    if (Model.Exception != ServerException.None)
+    {
+        
+          Model.Exception.ToString();
+    }
+} </label>
+<form method="post">
+    Username: <input asp-for="Account.Username" />
+    Password: <input asp-for="Account.Password" />
+    <input type="submit" />
+</form>
+

@@ -13,7 +13,7 @@ namespace BetYouServer.Configurations
     public class ServerConfiguration
     {
         public const int IdleTimeout = 10;
-
+        
         public IConfiguration Configuration { get; }
 
         public ServerConfiguration(IConfiguration configuration)
@@ -43,6 +43,25 @@ namespace BetYouServer.Configurations
             }
             app.UseSession();
             app.UseMvc();
+        }
+    }
+
+    public class RequestControllerConfiguration
+    {
+        public const string Route = "RequestController/";
+
+        public class Request
+        {
+            public const string Hello           = "Hello";
+            public const string Register        = "Register";
+            public const string Login           = "Login";
+            public const string UpdateAccount   = "UpdateAccount";
+            public const string Logout          = "Logout";
+        }
+        
+        public class AdminRequest
+        {
+            public const string CreateAdmin     = "CreateAdmin";
         }
     }
 }

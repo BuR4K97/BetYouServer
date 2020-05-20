@@ -31,6 +31,27 @@ namespace BetYouServer.Controllers
             return result;
         }
 
+        public ExecutionResult UpdateData(DatabaseModel update, List<DatabaseQuery.Helper> setters, DatabaseModel condition, List<DatabaseQuery.Condition> conditioners
+            , List<DatabaseQuery> conditionExts = null)
+        {
+            DatabaseQuery query = DatabaseQuery.ConstructUpdateStatement(update, setters, condition, conditioners, conditionExts);
+            ExecutionResult result = new ExecutionResult() { Stat = ExecutionResult.Status.Success, Data = query.Results };
+
+            string execQuery = query.GetSQLRepresentation();
+            DatabaseConnection dbConn = DBController.RetrieveDBConnection();
+            try
+            {
+                dbConn.ExecuteQuery(execQuery);
+            }
+            catch (DBQExecutionFailException exception)
+            {
+                result.Stat = ExecutionResult.Status.Fail;
+                result.FailInfo = exception.InnerExceptMess;
+            }
+            DBController.ReleaseDBConnection(dbConn);
+            return result;
+        }
+
         public ExecutionResult SelectData(DatabaseModel select, DatabaseModel condition, List<DatabaseQuery.Condition> conditioners, List<DatabaseQuery> conditionExts = null)
         {
             DatabaseQuery query = DatabaseQuery.ConstructSelectStatement(select, condition, conditioners, conditionExts);

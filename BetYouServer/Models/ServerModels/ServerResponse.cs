@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace BetYouServer.Models
 {
-    public enum ServerException { None, UnknownUsername, InvalidLoginCredentials, RegisteredUsername, RegisteredEmail }
+    public enum ServerException
+    {
+        None, UnknownUsername, InvalidLoginCredentials, RegisteredUsername, RegisteredEmail, RegisteredNickname, InvalidAccountID
+    }
 
     public class ServerResponse
     {

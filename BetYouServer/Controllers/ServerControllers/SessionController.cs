@@ -8,37 +8,43 @@ using BetYouServer.Models;
 
 namespace BetYouServer.Controllers
 {
-    public partial class RequestController : ControllerBase
+    public enum Authorization { Unauthorized, User, Admin }
+
+    public class SessionController
     {
         private enum SessionIdentifier { Account, Authorization }
-        private enum Authorization { Unauthorized, User, Admin }
 
-        private void CreateSession(Account account, Actor actor)
+        public void CreateSession(HttpContext context, Account account, Actor actor)
         {
-            HttpContext.Session.SetString(SessionIdentifier.Account.ToString(), account.ID.ToString());
+            context.Session.SetString(SessionIdentifier.Account.ToString(), account.ID.ToString());
             if (actor is User)
             {
-                HttpContext.Session.SetString(SessionIdentifier.Authorization.ToString(), Authorization.User.ToString());
+                context.Session.SetString(SessionIdentifier.Authorization.ToString(), Authorization.User.ToString());
             }
             else
             {
-                HttpContext.Session.SetString(SessionIdentifier.Authorization.ToString(), Authorization.Admin.ToString());
+                context.Session.SetString(SessionIdentifier.Authorization.ToString(), Authorization.Admin.ToString());
             }
         }
 
-        private Account GetSessionAccount()
+        public Account GetSessionAccount(HttpContext context)
         {
-            string accountID = HttpContext.Session.GetString(SessionIdentifier.Account.ToString());
+            string accountID = context.Session.GetString(SessionIdentifier.Account.ToString());
             if (String.IsNullOrEmpty(accountID)) return null;
             return new Account() { ID = Convert.ToInt32(accountID) };
         }
 
-        private Authorization GetSessionAuthorization()
+        public Authorization GetSessionAuthorization(HttpContext context)
         {
-            string authorization = HttpContext.Session.GetString(SessionIdentifier.Authorization.ToString());
+            string authorization = context.Session.GetString(SessionIdentifier.Authorization.ToString());
             if (String.IsNullOrEmpty(authorization)) return Authorization.Unauthorized;
             return Enum.Parse<Authorization>(authorization);
         }
 
+        public void TerminateSession(HttpContext context)
+        {
+            context.Session.Remove(SessionIdentifier.Account.ToString());
+            context.Session.Remove(SessionIdentifier.Authorization.ToString());
+        }
     }
 }

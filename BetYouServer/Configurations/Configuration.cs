@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using BetYouServer.Controllers;
+using BetYouServer.Pages;
 
 namespace BetYouServer.Configurations
 {
@@ -20,6 +21,8 @@ namespace BetYouServer.Configurations
                 .AddSingleton<DBConnectionController>()
                 .AddSingleton<DatabaseController>()
                 .AddSingleton<AccountController>()
+                .AddSingleton<SessionController>()
+                .AddSingleton<PageController>()
                 .BuildServiceProvider();
         }
 

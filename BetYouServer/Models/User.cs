@@ -13,15 +13,15 @@ namespace BetYouServer.Models
         public enum Attribute { Account, BetPermission, SocialPermission, Balance, VirtualBalance, Rating, Member }
         public enum Membership { Bronze, Silver, Gold }
 
-        public bool BetPermission       = true;
-        public bool SocialPermission    = true;
-        public float Balance            = 0.0f;
-        public float VirtualBalance     = 0.0f;
-        public int Rating               = 0;
-        public Membership Member        = Membership.Bronze;
+        public bool BetPermission       { get; set; } = true;
+        public bool SocialPermission    { get; set; } = true;
+        public float Balance            { get; set; } = 0.0f;
+        public float VirtualBalance     { get; set; } = 0.0f;
+        public int Rating               { get; set; } = 0;
+        public Membership Member        { get; set; } = Membership.Bronze;
 
         //DB Purpose - Clear before use! Add only next DBQuery related attributes 
-        public List<Attribute> Attributes = new List<Attribute>();
+        public readonly List<Attribute> Attributes = new List<Attribute>();
 
         public override ServerModel GetServerModel()
         {
@@ -49,7 +49,6 @@ namespace BetYouServer.Models
 
         public override Dictionary<string, string> GetAttributes()
         {
-            Attributes.Sort();
             Dictionary<string, string> attributes = new Dictionary<string, string>();
             foreach (Attribute attribute in Attributes)
             {

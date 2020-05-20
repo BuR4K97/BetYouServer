@@ -19,13 +19,13 @@ namespace BetYouServer.Models
 
         public enum Attribute { ID, Username, Password, Forename, Surname, Email, PicLink }
 
-        public int ID;
-        public string Username;
-        public string Password;
-        public string Forename;
-        public string Surname;
-        public string Email;
-        public string PicLink;
+        public int ID           { get; set; }
+        public string Username  { get; set; }
+        public string Password  { get; set; }
+        public string Forename  { get; set; }
+        public string Surname   { get; set; }
+        public string Email     { get; set; }
+        public string PicLink   { get; set; }
 
         //DB Purpose - Clear before use! Add only next DBQuery related attributes 
         public List<Attribute> Attributes = new List<Attribute>();
