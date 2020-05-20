@@ -15,8 +15,4 @@
     <PackageReference Include="MySql.Data" Version="8.0.20" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\Styles\BetYou.css" />
-  </ItemGroup>
-
 </Project>

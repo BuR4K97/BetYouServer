@@ -13,26 +13,44 @@
         default: break;
     }
 }
-<div class="header">
-    <h2>Login</h2>
-</div>
 
-<div class="login-credentials">
-    <div class="lc-message">
-        <label> @lcMessage </label>
-    </div>
-    <div class="lc-input">
-        <form method="post">
-            <div class="lci-username">
-                <label> Username: </label> <input asp-for="Account.Username" />
-            </div>
-            <div class="lci-password"> 
-                <label> Password: </label> <input asp-for="Account.Password" /> 
-            </div>
-            <div class="lci-submit">
-                <input type="submit" />
-            </div>
-        </form>
-    </div>
-</div>
+<div class="wrap-login100">
+    <form class="login100-form validate-form" method="post">
+        <span class="login100-form-logo">
+            <i class="zmdi zmdi-landscape"></i>
+        </span>
 
+        <span class="login100-form-title p-b-34 p-t-27">
+            Log in
+        </span>
+
+        <div class="wrap-input100 validate-input" data-validate="Enter username">
+            <input asp-for="Account.Username" class="input100" type="text" placeholder="Username">
+            <span class="focus-input100" data-placeholder="&#xf207;"></span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+            <input asp-for="Account.Password" class="input100" type="password" placeholder="Password">
+            <span class="focus-input100" data-placeholder="&#xf191;"></span>
+        </div>
+
+        <div class="contact100-form-checkbox">
+            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+            <label class="label-checkbox100" for="ckb1">
+                Remember me
+            </label>
+        </div>
+
+        <div class="container-login100-form-btn">
+            <button type="submit" class="login100-form-btn">
+                Login
+            </button>
+        </div>
+
+        <div class="text-center p-t-90">
+            <a class="txt1" href="#">
+                Forgot Password?
+            </a>
+        </div>
+    </form>
+</div>
