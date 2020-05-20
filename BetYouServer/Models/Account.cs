@@ -7,7 +7,7 @@ namespace BetYouServer.Models
 {
     public abstract class Actor : DatabaseModel, IServerModel
     {
-        public Account Account;
+        public Account Account { get; set; }
 
         public abstract ServerModel GetServerModel();
     }

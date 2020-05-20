@@ -3,19 +3,36 @@
 @model BetYouServer.Pages.LoginModel
 @{
     ViewData["Title"] = "Login";
-    Layout = "~/Pages/_Layout.cshtml";
-}
-<h2>Login</h2>
-<label> @{ 
-    if (Model.Exception != ServerException.None)
+
+    string lcMessage = null;
+    switch (Model.Exception)
     {
-        
-          Model.Exception.ToString();
+        case ServerException.None: lcMessage = "Please enter your credentials..."; break;
+        case ServerException.UnknownUsername: lcMessage = "The specified username not found!"; break;
+        case ServerException.InvalidLoginCredentials: lcMessage = "Invalid Login Credentials!"; break;
+        default: break;
     }
-} </label>
-<form method="post">
-    Username: <input asp-for="Account.Username" />
-    Password: <input asp-for="Account.Password" />
-    <input type="submit" />
-</form>
+}
+<div class="header">
+    <h2>Login</h2>
+</div>
+
+<div class="login-credentials">
+    <div class="lc-message">
+        <label> @lcMessage </label>
+    </div>
+    <div class="lc-input">
+        <form method="post">
+            <div class="lci-username">
+                <label> Username: </label> <input asp-for="Account.Username" />
+            </div>
+            <div class="lci-password"> 
+                <label> Password: </label> <input asp-for="Account.Password" /> 
+            </div>
+            <div class="lci-submit">
+                <input type="submit" />
+            </div>
+        </form>
+    </div>
+</div>
 

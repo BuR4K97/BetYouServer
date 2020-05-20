@@ -41,6 +41,7 @@ namespace BetYouServer.Configurations
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();
             app.UseSession();
             app.UseMvc();
         }
