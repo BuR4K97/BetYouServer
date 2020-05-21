@@ -30,5 +30,23 @@ namespace BetYouServer.Pages
             return (actor, response.Exception);
         }
 
+        public (User, ServerException) Register(HttpContext context, Account register)
+        {
+            ControllerContext controllerContext = new ControllerContext() { HttpContext = context };
+            RequestController requestController = new RequestController();
+            requestController.ControllerContext = controllerContext;
+
+            ServerActionResult action = requestController.Register(register);
+            ServerResponse response = action.Response;
+
+            User user = null;
+            if (response.Exception == ServerException.None)
+            {
+                KeyValuePair<ServerModel, IServerModel> model = response.Data.First();
+                user = model.Value as User;
+            }
+            return (user, response.Exception);
+        }
+
     }
 }

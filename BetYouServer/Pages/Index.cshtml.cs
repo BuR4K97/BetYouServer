@@ -12,10 +12,6 @@ namespace BetYouServer.Pages
     {
         public ActionResult OnGet()
         {
-            if (Globals.SessionController.GetSessionAuthorization(HttpContext) == Authorization.Unauthorized)
-            {
-                return Redirect("~/Login");
-            }
             return Redirect("~/Home");
         }
     }

@@ -25,12 +25,11 @@ namespace BetYouServer.Pages
 
         public ActionResult OnPost()
         {
+            if (String.IsNullOrEmpty(Account.Username) || String.IsNullOrEmpty(Account.Password)) return Page();
+
             Actor actor; (actor, Exception) = Globals.PageController.Login(HttpContext, Account);
             if (Exception == ServerException.None)
             {
-                if(actor is User) ViewData.Add(Globals.AuthorizationKey, Authorization.User);
-                else ViewData.Add(Globals.AuthorizationKey, Authorization.Admin);
-                ViewData.Add(Globals.ActorKey, actor);
                 return Redirect("~/Home");
             }
             return Page();

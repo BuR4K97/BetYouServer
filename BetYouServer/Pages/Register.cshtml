@@ -1,0 +1,81 @@
+﻿@page
+@model BetYouServer.Pages.RegisterModel
+@using BetYouServer.Models
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Pages/_Layout.cshtml";
+
+    string lcMessage = null;
+    switch (Model.Exception)
+    {
+        case ServerException.None: lcMessage = ""; break;
+        case ServerException.RegisteredUsername: lcMessage = "Username already exists!"; break;
+        case ServerException.RegisteredEmail: lcMessage = "Email already exists!"; break;
+        default: break;
+    }
+}
+
+<div class="wrapper" style="background-image: url('images/walle.jpg');">
+    <div class="inner">
+        <div class="image-holder">
+            <img src="~/images/post2.png" alt="">
+        </div>
+        <form method="post">
+            <h3>Registration Form</h3>
+            <div class="form-group">
+                <input asp-for="Account.Forename" type="text" placeholder="First Name" class="form-control">
+                <input asp-for="Account.Surname" type="text" placeholder="Last Name" class="form-control">
+            </div>
+            <div class="form-wrapper">
+                <input asp-for="Account.Username" type="text" placeholder="Username" class="form-control">
+                <i class="zmdi zmdi-account"></i>
+            </div>
+            <div class="form-wrapper">
+                <input asp-for="Account.Email" type="text" placeholder="Email Address" class="form-control">
+                <i class="zmdi zmdi-email"></i>
+            </div>
+            <div class="form-wrapper">
+                <select name="" id="" class="form-control">
+                    <option value="" disabled selected>Gender</option>
+                    <option value="male">Male</option>
+                    <option value="femal">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+            </div>
+            <div class="form-wrapper">
+                <input asp-for="Account.Password" type="password" placeholder="Password" class="form-control">
+                <i class="zmdi zmdi-lock"></i>
+            </div>
+            <div>
+                <label>@lcMessage</label>
+            </div>
+            <button type="submit">
+                Register
+                <i class="zmdi zmdi-arrow-right"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+
+@section StyleSheets
+    {
+    <link rel="stylesheet" href="fonts/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/style_1.css">
+}
+
+@section Scripts
+    {
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13" type="bcd33c5916e7aa17ebc7b219-text/javascript"></script>
+    <script type="bcd33c5916e7aa17ebc7b219-text/javascript">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+    <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="bcd33c5916e7aa17ebc7b219-|49" defer=""></script>
+
+}
+
