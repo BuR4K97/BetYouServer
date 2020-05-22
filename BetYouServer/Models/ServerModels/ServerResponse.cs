@@ -12,8 +12,13 @@ namespace BetYouServer.Models
 
     public class ServerResponse
     {
-        public Dictionary<ServerModel, IServerModel> Data = new Dictionary<ServerModel, IServerModel>();
+        public List<KeyValuePair<ServerModel, IServerModel>> Data = new List<KeyValuePair<ServerModel, IServerModel>>();
         public ServerException Exception = ServerException.None;
+
+        public void InsertData(ServerModel type, IServerModel model)
+        {
+            Data.Add(new KeyValuePair<ServerModel, IServerModel>(type, model));
+        }
     }
 
 }

@@ -29,12 +29,12 @@ namespace BetYouServer.Controllers
             if (authorization == Authorization.User)
             {
                 (User user, ServerException exception) = AccountController.GetAccountUser(sessionAccount);
-                response.Data.Add(user.GetServerModel(), user);
+                response.InsertData(user.GetServerModel(), user);
             }
             else
             {
                 (Admin admin, ServerException exception) = AccountController.GetAccountAdmin(sessionAccount);
-                response.Data.Add(admin.GetServerModel(), admin);
+                response.InsertData(admin.GetServerModel(), admin);
             }
             return new ServerActionResult(ServerActionResult.Status.Ok, response);
         }
@@ -47,7 +47,7 @@ namespace BetYouServer.Controllers
             if (exception == ServerException.None)
             {
                 SessionController.CreateSession(HttpContext, register, user);
-                response.Data.Add(user.GetServerModel(), user);
+                response.InsertData(user.GetServerModel(), user);
             }
             else
             {
@@ -64,7 +64,7 @@ namespace BetYouServer.Controllers
             if (exception == ServerException.None)
             {
                 SessionController.CreateSession(HttpContext, login, actor);
-                response.Data.Add(actor.GetServerModel(), actor);
+                response.InsertData(actor.GetServerModel(), actor);
             }
             else
             {

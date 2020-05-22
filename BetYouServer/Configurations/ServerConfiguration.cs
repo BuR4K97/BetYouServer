@@ -64,5 +64,10 @@ namespace BetYouServer.Configurations
         {
             public const string CreateAdmin     = "CreateAdmin";
         }
+
+        public class UserRequest
+        {
+            public const string RetrieveMatches = "RetrieveMatches";
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using BetYouServer.Controllers;
 using BetYouServer.Models;
 
 namespace BetYouServer.Pages
@@ -13,9 +14,13 @@ namespace BetYouServer.Pages
         [BindProperty] public Account Account { get; set; } = new Account();
         public ServerException Exception;
 
-        public void OnGet()
+        public ActionResult OnGet()
         {
-
+            if (Globals.SessionController.GetSessionAuthorization(HttpContext) != Authorization.Unauthorized)
+            {
+                return Redirect("~/Home");
+            }
+            return Page();
         }
 
         public ActionResult OnPost()

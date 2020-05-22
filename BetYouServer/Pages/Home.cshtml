@@ -26,10 +26,12 @@
                         <div class="right_top_section">
                             <!-- social icon -->
                             <ul class="social-icons pull-left">
-                                <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a class="youtube" href="#"><i class="fa fa-youtube-play"></i></a></li>
-                                <li><a class="pinterest" href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                @{
+                                    if (Globals.SessionController.GetSessionAuthorization(HttpContext) != Authorization.Unauthorized)
+                                    {
+                                        <li><a class="pinterest" href="@Url.Content("~/Logout")"><i class="fa fa-sign-out"></i></a></li>
+                                    }
+                                }
                             </ul>
                             <!-- end social icon -->
                             <!-- button section -->
@@ -73,7 +75,7 @@
                                             <ul class="nav navbar-nav">
                                                 <li class="active"><a href="@Url.Content("~/Home")">Home</a></li>
                                                 <li><a href="@Url.Content("~/Profie")">Profile</a></li>
-                                                <li><a href="@Url.Content("~/Betting")">Betting</a></li>
+                                                <li><a href="@Url.Content("~/Matches")">Betting</a></li>
                                                 <li><a href="@Url.Content("~/News")">News</a></li>
                                             </ul>
                                         </div>
@@ -457,7 +459,7 @@
                                     <li><a class="facebook" href="#" tabindex="0"><i class="fa fa-facebook"></i></a></li>
                                     <li><a class="twitter" href="#" tabindex="0"><i class="fa fa-twitter"></i></a></li>
                                     <li><a class="youtube" href="#" tabindex="0"><i class="fa fa-youtube-play"></i></a></li>
-                                    <li><a class="pinterest" href="#" tabindex="0"><i class="fa fa-pinterest-p"></i></a></li>
+                                    <li><a class="pinterest" href="#" tabindex="0"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
                                 </ul>
                                 <a class="btn blue-btn" href=" /soccer/team-detail.html" tabindex="0">View Detail</a>
                             </div>

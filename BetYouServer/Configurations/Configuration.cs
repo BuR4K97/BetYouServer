@@ -20,6 +20,8 @@ namespace BetYouServer.Configurations
                 .AddSingleton<DatabaseConfiguration>()
                 .AddSingleton<DBConnectionController>()
                 .AddSingleton<DatabaseController>()
+                .AddSingleton<SportController>()
+                .AddSingleton<BetController>()
                 .AddSingleton<AccountController>()
                 .AddSingleton<SessionController>()
                 .AddSingleton<PageController>()

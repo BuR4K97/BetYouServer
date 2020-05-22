@@ -48,5 +48,30 @@ namespace BetYouServer.Pages
             return (user, response.Exception);
         }
 
+        public List<(Match, Team, Team)> RetrieveMatches(HttpContext context)
+        {
+            ControllerContext controllerContext = new ControllerContext() { HttpContext = context };
+            RequestController requestController = new RequestController();
+            requestController.ControllerContext = controllerContext;
+
+            ServerActionResult action = requestController.RetrieveMatches();
+            ServerResponse response = action.Response;
+
+            List<(Match, Team, Team)> matches = new List<(Match, Team, Team)>();
+            for(int i = 0; i < response.Data.Count; i += 3)
+            {
+                matches.Add((response.Data.ElementAt(i).Value as Match, response.Data.ElementAt(i + 1).Value as Team , response.Data.ElementAt(i + 2).Value as Team));
+            }
+            return matches;
+        }
+
+        public void Logout(HttpContext context)
+        {
+            ControllerContext controllerContext = new ControllerContext() { HttpContext = context };
+            RequestController requestController = new RequestController();
+            requestController.ControllerContext = controllerContext;
+            requestController.Logout();
+        }
+
     }
 }
